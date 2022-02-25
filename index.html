@@ -5,46 +5,65 @@
     <title>Tomel</title>
     <script src="https://cdn-tailwindcss.vercel.app/"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="js/index.js"></script>
 </head>
 <body class="bg-gray-700">
     <h1 class="text-center text-3xl font-bold text-purple-500 my-8">Tomel</h1>
-    <div class="grid grid-cols-5 gap-2 mx-auto" style="width: 270px">
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
-        <div class="letter-square"></div>
+    <div class="grid gap-y-2 mx-auto" style="width: 270px">
+        <div class="letter-row" id="row-0">
+            <div class="letter-square"></div>
+            <div class="letter-square"></div>
+            <div class="letter-square"></div>
+            <div class="letter-square"></div>
+            <div class="letter-square"></div>
+        </div>
+        <div class="letter-row" id="row-1">
+            <div class="letter-square"></div>
+            <div class="letter-square"></div>
+            <div class="letter-square"></div>
+            <div class="letter-square"></div>
+            <div class="letter-square"></div>
+        </div>
+        <div class="letter-row" id="row-2">
+            <div class="letter-square"></div>
+            <div class="letter-square"></div>
+            <div class="letter-square"></div>
+            <div class="letter-square"></div>
+            <div class="letter-square"></div>
+        </div>
+        <div class="letter-row" id="row-3">
+            <div class="letter-square"></div>
+            <div class="letter-square"></div>
+            <div class="letter-square"></div>
+            <div class="letter-square"></div>
+            <div class="letter-square"></div>
+        </div>
+        <div class="letter-row" id="row-4">
+            <div class="letter-square"></div>
+            <div class="letter-square"></div>
+            <div class="letter-square"></div>
+            <div class="letter-square"></div>
+            <div class="letter-square"></div>
+        </div>
+        <div class="letter-row" id="row-5">
+            <div class="letter-square"></div>
+            <div class="letter-square"></div>
+            <div class="letter-square"></div>
+            <div class="letter-square"></div>
+            <div class="letter-square"></div>
+        </div>
     </div>
 
 </body>
     <style type="text/tailwindcss">
+        .letter-row {
+            @apply flex space-x-2;
+        }
         .letter-square {
-            @apply h-12 w-12 rounded-md border-2 border-gray-300 bg-gray-700;
+            @apply h-12 w-12 rounded-md border-2 border-gray-300 bg-gray-700 flex flex-row items-center;
+        }
+        .letter {
+            @apply text-white capitalize text-center w-full text-2xl font-bold mb-1;
         }
     </style>
 </html>
