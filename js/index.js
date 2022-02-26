@@ -35,33 +35,44 @@ document.onkeydown = function (e) {
 
     if (square_active > 4 && e.key === 'Enter') {
 
-
-        if (words.includes(mot_active) === false) {
+        //words.includes(mot_active)
+        if (false) {
             console.log('il est pas dedans')
         } else {
 
-            let repartition = [];
+            let repartition_mdj = [];
+
             mot_du_jour.split('', 5).forEach((el, index) => {
-                if (el in repartition) {
-                    repartition[el].push(index)
+                if (el in repartition_mdj) {
+                    repartition_mdj[el].push(index)
                 } else {
-                    repartition[el] = [index];
+                    repartition_mdj[el] = [index];
                 }
             })
+
+            let repartition_ma = [];
+
+            mot_active.split('', 5).forEach((el, index) => {
+                if (el in repartition_ma) {
+                    repartition_ma[el].push(index)
+                } else {
+                    repartition_ma[el] = [index];
+                }
+            })
+
+            let repartition_inter = []
 
             //calcul du placement des lettre
             mot_active.split('', 5).forEach((lettre, index) => {
 
                 let square = document.querySelector(`#row-${row_active} :nth-child(${index + 1})`);
 
-                //si la lettre est au bon endroit
-                if (index === mot_du_jour.split('', 5).indexOf(lettre)) {
-                    square.classList = 'letter-square-right-place';
-
-                } else if (mot_du_jour.split('', 5).includes(lettre)) {
-                    square.classList = 'letter-square-wrong-place';
-
-                } else {
+                if (lettre in repartition_mdj) {
+                    if (repartition_mdj[lettre].includes(index)) {
+                        square.classList = 'letter-square-right-place';
+                    } else {
+                        square.classList = 'letter-square-wrong-place';
+                    }
                 }
             })
 
