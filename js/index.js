@@ -199,7 +199,6 @@ document.onkeydown = function (e) {
 };
 
 function copy(){
-
     string_final = string_final.replaceAll('<br>', "\r\n")
     setTimeout(function (){
         navigator.clipboard.writeText('https://mmi19d09.mmi-troyes.fr/tomel\r\n'+result+'\r\n'+string_final)
