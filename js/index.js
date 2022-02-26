@@ -12,7 +12,7 @@ $.getJSON('js/random_words.json', function (data) {
     date1 = new Date("2022-02-25");
     date2 = new Date();
     mot_du_jour = data[Math.floor((date2.getTime() - date1.getTime()) / (1000 * 60 * 60 * 24))]
-    console.log(mot_du_jour);
+    mot_du_jour = 'homme'
 })
 
 document.onkeydown = function (e) {
@@ -35,26 +35,33 @@ document.onkeydown = function (e) {
 
     if (square_active > 4 && e.key === 'Enter') {
 
+
         if (words.includes(mot_active) === false) {
             console.log('il est pas dedans')
         } else {
-            //calcul du placement des lettres
 
+            let repartition = [];
+            mot_du_jour.split('', 5).forEach((el, index) => {
+                if (el in repartition) {
+                    repartition[el].push(index)
+                } else {
+                    repartition[el] = [index];
+                }
+            })
+
+            //calcul du placement des lettre
             mot_active.split('', 5).forEach((lettre, index) => {
-                console.log(mot_du_jour.split('', 5).indexOf(lettre))
+
                 let square = document.querySelector(`#row-${row_active} :nth-child(${index + 1})`);
 
                 //si la lettre est au bon endroit
                 if (index === mot_du_jour.split('', 5).indexOf(lettre)) {
-                    console.log('la lettre '+lettre+' est au bon endroit')
                     square.classList = 'letter-square-right-place';
 
                 } else if (mot_du_jour.split('', 5).includes(lettre)) {
-                    console.log('la lettre '+lettre+' est mal placée')
                     square.classList = 'letter-square-wrong-place';
 
                 } else {
-                    console.log('la lettre '+lettre+' n\'est pas présente')
                 }
             })
 
