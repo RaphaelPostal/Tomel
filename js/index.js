@@ -153,7 +153,7 @@ document.onkeydown = function (e) {
                         }
                     } else if (repartition_mdj[lettre].includes(index)) { //elle est à la bonne place
                         square.classList = 'letter-square-right-place';
-                        string_row = string_row + '🟦'
+                        string_row = string_row + '🟪'
 
                     } else {
                         string_row = string_row + '⬛'
@@ -168,7 +168,7 @@ document.onkeydown = function (e) {
             } else {
                 string_final = string_final + string_row
             }
-            
+
             //fin du jeu
 
             if (mot_active === mot_du_jour) {
