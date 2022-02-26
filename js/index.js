@@ -12,7 +12,6 @@ $.getJSON('js/random_words.json', function (data) {
     date1 = new Date("2022-02-25");
     date2 = new Date();
     mot_du_jour = data[Math.floor((date2.getTime() - date1.getTime()) / (1000 * 60 * 60 * 24))]
-    mot_du_jour = 'homme'
 })
 
 document.onkeydown = function (e) {
@@ -90,18 +89,16 @@ document.onkeydown = function (e) {
 
                     if (repartition_mdj[lettre].includes(index) === false) { //elle est pas à la bonne place
                         if (lettre in repartition_clue) {
-                            
-                            if (repartition_clue[lettre].length < repartition_mdj[lettre].length) {
-
-                                if (lettre in repartition_found) {
-                                    console.log(lettre+index+' fait chier')
+                            if (lettre in repartition_found) {
+                                if (repartition_clue[lettre].length < repartition_mdj[lettre].length - 1) {
                                     if (repartition_found[lettre].includes(index) === false) {
                                         repartition_clue[lettre].push(index)
                                     }
-                                } else {
+                                }
+                            } else {
+                                if (repartition_clue[lettre].length < repartition_mdj[lettre].length) {
                                     repartition_clue[lettre].push(index);
                                 }
-
                             }
                         } else {
 
