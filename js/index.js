@@ -3,7 +3,8 @@ let square_active = 0;
 let mot_du_jour = '';
 let mot_active = '';
 let words = [];
-let tab_final = [];
+let string_final = [];
+let result = '';
 
 function shuffle(a) {
     var j, x, i;
@@ -29,26 +30,26 @@ document.onkeydown = function (e) {
         let square = document.querySelector(`#row-${row_active} :nth-child(${square_active + 1})`);
 
         square.innerHTML += `<span class="letter">${e.key}</span>`;
-        mot_active = mot_active+e.key;
+        mot_active = mot_active + e.key;
 
-        square_active ++;
+        square_active++;
     }
 
     if (e.key === 'Backspace' && square_active > 0) {
-        square_active --;
+        square_active--;
         let square = document.querySelector(`#row-${row_active} :nth-child(${square_active + 1})`);
         mot_active = mot_active.slice(0, -1)
         square.innerHTML = '';
     }
 
     if (square_active > 4 && e.key === 'Enter') {
+        let string_row = '';
+
         if (!words.includes(mot_active)) {
             document.getElementById('not-exist').classList.remove('hidden')
         } else {
 
-            tab_final[row_active] = []
-
-            if(!document.getElementById('not-exist').classList.contains('hidden')){
+            if (!document.getElementById('not-exist').classList.contains('hidden')) {
                 document.getElementById('not-exist').classList += ' hidden';
             }
             let repartition_mdj = [];
@@ -131,47 +132,76 @@ document.onkeydown = function (e) {
 
             })
 
-
             mot_active.split('', 5).forEach((lettre, index) => {
 
                 let square = document.querySelector(`#row-${row_active} :nth-child(${index + 1})`);
 
                 if (lettre in repartition_mdj) { //elle est dans le mot à trouver
-                    if (repartition_mdj[lettre].includes(index) === false) { //elle est pas à la bonne place
+                    if (repartition_mdj[lettre].includes(index) === false) { //elle est pas à la bonne place ou dejà trouvée autre part
 
-                            if (lettre in repartition_clue) {
+                        if (lettre in repartition_clue) {
 
                             if (repartition_clue[lettre].includes(index)) {
                                 square.classList = 'letter-square-wrong-place';
+                                string_row = string_row + '⬜'
+                            } else {
+                                string_row = string_row + '⬛'
                             }
+
+                        } else {
+                            string_row = string_row + '⬛'
                         }
                     } else if (repartition_mdj[lettre].includes(index)) { //elle est à la bonne place
                         square.classList = 'letter-square-right-place';
+                        string_row = string_row + '🟦'
+
+                    } else {
+                        string_row = string_row + '⬛'
                     }
+                } else {
+                    string_row= string_row + '⬛'
                 }
             })
 
+            if (row_active > 0) {
+                string_final = string_final + '<br>' + string_row
+            } else {
+                string_final = string_final + string_row
+            }
+            
+            //fin du jeu
+
             if (mot_active === mot_du_jour) {
-                setTimeout(function() {
+                setTimeout(function () {
                     document.getElementById('succes').classList.remove('hidden')
+                    document.querySelector('#succes .result-grid').innerHTML = string_final
                 })
+                result = row_active + 1 +'/6'
             } else {
                 if (row_active < 5) {
                     setTimeout(function () {
                         square_active = 0;
-                        row_active ++;
+                        row_active++;
                         mot_active = '';
-                    }, 500)
+                    })
                 } else {
-                    setTimeout(function() {
+                    setTimeout(function () {
                         document.getElementById('fail').classList.remove('hidden')
                         document.getElementById('lemot').innerHTML = mot_du_jour
+                        document.querySelector('#fail .result-grid').innerHTML = string_final
                     })
-                }
 
+                    result = 'échec/6'
+                }
             }
         }
-
-        console.log(tab_final)
     }
 };
+
+function copy(){
+
+    string_final = string_final.replaceAll('<br>', "\r\n")
+    setTimeout(function (){
+        navigator.clipboard.writeText('https://mmi19d09.mmi-troyes.fr/tomel\r\n'+result+'\r\n'+string_final)
+    },100)
+}
