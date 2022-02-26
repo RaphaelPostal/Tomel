@@ -62,6 +62,7 @@ document.onkeydown = function (e) {
             })
 
             let repartition_found = [];
+            let repartition_clue = [];
 
             //calcul du placement des lettre
             mot_active.split('', 5).forEach((lettre, index) => {
@@ -69,7 +70,6 @@ document.onkeydown = function (e) {
                 let square = document.querySelector(`#row-${row_active} :nth-child(${index + 1})`);
 
                 if (lettre in repartition_mdj) { //elle est dans le mot à trouver
-                    console.log(repartition_mdj[lettre])
                     if (repartition_mdj[lettre].includes(index)) { //elle est à la bonne place
                         if (lettre in repartition_found) {
                             repartition_found[lettre].push(index)
@@ -87,15 +87,56 @@ document.onkeydown = function (e) {
                 let square = document.querySelector(`#row-${row_active} :nth-child(${index + 1})`);
 
                 if (lettre in repartition_mdj) { //elle est dans le mot à trouver
-                    if (repartition_mdj[lettre].includes(index) === false) { //elle est à la bonne place
-                        if (lettre in repartition_found) {
-                            console.log(repartition_found[lettre])
-                            console.log(repartition_mdj[lettre])
-                            if (repartition_found[lettre].length < repartition_mdj[lettre].length) {
-                                square.classList = 'letter-square-wrong-place';
+
+                    if (repartition_mdj[lettre].includes(index) === false) { //elle est pas à la bonne place
+                        if (lettre in repartition_clue) {
+                            
+                            if (repartition_clue[lettre].length < repartition_mdj[lettre].length) {
+
+                                if (lettre in repartition_found) {
+                                    console.log(lettre+index+' fait chier')
+                                    if (repartition_found[lettre].includes(index) === false) {
+                                        repartition_clue[lettre].push(index)
+                                    }
+                                } else {
+                                    repartition_clue[lettre].push(index);
+                                }
+
                             }
                         } else {
-                            square.classList = 'letter-square-wrong-place';
+
+                            if (lettre in repartition_found) {
+                                if (repartition_found[lettre].length < repartition_mdj[lettre].length) {
+                                    if (lettre in repartition_clue) {
+                                        repartition_clue[lettre].push(index);
+                                    } else {
+                                        repartition_clue[lettre] = [index];
+                                    }
+                                }
+                            } else {
+                                repartition_clue[lettre] = [index]
+
+                            }
+                        }
+
+                    }
+                }
+
+            })
+
+
+            mot_active.split('', 5).forEach((lettre, index) => {
+
+                let square = document.querySelector(`#row-${row_active} :nth-child(${index + 1})`);
+
+                if (lettre in repartition_mdj) { //elle est dans le mot à trouver
+                    if (repartition_mdj[lettre].includes(index) === false) { //elle est pas à la bonne place
+
+                            if (lettre in repartition_clue) {
+
+                            if (repartition_clue[lettre].includes(index)) {
+                                square.classList = 'letter-square-wrong-place';
+                            }
                         }
                     }
                 }
