@@ -3,12 +3,24 @@ let square_active = 0;
 let mot_du_jour = '';
 let mot_active = '';
 let words = [];
+let tab_final = [];
+
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+    return a;
+}
 
 $.getJSON('js/random_words.json', function (data) {
     words = data
-    date1 = new Date("2022-02-25");
+    date1 = new Date("2022-02-26");
     date2 = new Date();
-    mot_du_jour = data[Math.floor((date2.getTime() - date1.getTime()) / (1000 * 60 * 60 * 24))]
+    mot_du_jour = words[Math.floor((date2.getTime() - date1.getTime()) / (1000 * 60 * 60 * 24))]
 })
 
 document.onkeydown = function (e) {
@@ -30,10 +42,12 @@ document.onkeydown = function (e) {
     }
 
     if (square_active > 4 && e.key === 'Enter') {
-
         if (!words.includes(mot_active)) {
             document.getElementById('not-exist').classList.remove('hidden')
         } else {
+
+            tab_final[row_active] = []
+
             if(!document.getElementById('not-exist').classList.contains('hidden')){
                 document.getElementById('not-exist').classList += ' hidden';
             }
@@ -46,7 +60,6 @@ document.onkeydown = function (e) {
                     repartition_mdj[el] = [index];
                 }
             })
-
 
             let repartition_ma = [];
 
@@ -74,7 +87,6 @@ document.onkeydown = function (e) {
                             repartition_found[lettre] = [index];
                         }
 
-                        square.classList = 'letter-square-right-place';
                     }
                 }
             })
@@ -133,6 +145,8 @@ document.onkeydown = function (e) {
                                 square.classList = 'letter-square-wrong-place';
                             }
                         }
+                    } else if (repartition_mdj[lettre].includes(index)) { //elle est à la bonne place
+                        square.classList = 'letter-square-right-place';
                     }
                 }
             })
@@ -142,14 +156,22 @@ document.onkeydown = function (e) {
                     document.getElementById('succes').classList.remove('hidden')
                 })
             } else {
-                setTimeout(function () {
-                    square_active = 0;
-                    row_active ++;
-                    mot_active = '';
-                }, 500)
+                if (row_active < 5) {
+                    setTimeout(function () {
+                        square_active = 0;
+                        row_active ++;
+                        mot_active = '';
+                    }, 500)
+                } else {
+                    setTimeout(function() {
+                        document.getElementById('fail').classList.remove('hidden')
+                        document.getElementById('lemot').innerHTML = mot_du_jour
+                    })
+                }
+
             }
-
-
         }
+
+        console.log(tab_final)
     }
 };
