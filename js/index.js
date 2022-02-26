@@ -5,9 +5,6 @@ let mot_active = '';
 let words = [];
 
 $.getJSON('js/random_words.json', function (data) {
-    // let date = new Date();
-    // mot_du_jour = data[date.getFullYear() + Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24)]
-    // console.log(mot_du_jour)
     words = data
     date1 = new Date("2022-02-25");
     date2 = new Date();
@@ -34,11 +31,12 @@ document.onkeydown = function (e) {
 
     if (square_active > 4 && e.key === 'Enter') {
 
-        //words.includes(mot_active)
-        if (false) {
-            console.log('il est pas dedans')
+        if (!words.includes(mot_active)) {
+            document.getElementById('not-exist').classList.remove('hidden')
         } else {
-
+            if(!document.getElementById('not-exist').classList.contains('hidden')){
+                document.getElementById('not-exist').classList += ' hidden';
+            }
             let repartition_mdj = [];
 
             mot_du_jour.split('', 5).forEach((el, index) => {
@@ -139,11 +137,19 @@ document.onkeydown = function (e) {
                 }
             })
 
-            setTimeout(function () {
-                square_active = 0;
-                row_active ++;
-                mot_active = '';
-            }, 500)
+            if (mot_active === mot_du_jour) {
+                setTimeout(function() {
+                    document.getElementById('succes').classList.remove('hidden')
+                })
+            } else {
+                setTimeout(function () {
+                    square_active = 0;
+                    row_active ++;
+                    mot_active = '';
+                }, 500)
+            }
+
+
         }
     }
 };

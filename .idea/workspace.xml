@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e39e7880-0052-462d-9e9c-db769d8c0e47" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -34,7 +35,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../TchatApi/front/vue-tchat/public/index.html" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../WorkingLab" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
@@ -51,7 +52,7 @@
       <option name="presentableId" value="Default" />
       <updated>1645816455324</updated>
       <workItem from="1645816458038" duration="12446000" />
-      <workItem from="1645864382365" duration="22084000" />
+      <workItem from="1645864382365" duration="24080000" />
     </task>
     <servers />
   </component>
@@ -59,10 +60,10 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="421" y="96" key="FileChooserDialogImpl" timestamp="1645816997741">
+    <state x="421" y="96" key="FileChooserDialogImpl" timestamp="1645891235111">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="421" y="96" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1645816997741" />
+    <state x="421" y="96" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1645891235111" />
     <state x="297" y="151" key="run.anything.popup" timestamp="1645828746070">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
