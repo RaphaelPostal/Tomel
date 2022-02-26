@@ -50,6 +50,7 @@ document.onkeydown = function (e) {
                 }
             })
 
+
             let repartition_ma = [];
 
             mot_active.split('', 5).forEach((el, index) => {
@@ -60,18 +61,42 @@ document.onkeydown = function (e) {
                 }
             })
 
-            let repartition_inter = []
+            let repartition_found = [];
 
             //calcul du placement des lettre
             mot_active.split('', 5).forEach((lettre, index) => {
 
                 let square = document.querySelector(`#row-${row_active} :nth-child(${index + 1})`);
 
-                if (lettre in repartition_mdj) {
-                    if (repartition_mdj[lettre].includes(index)) {
+                if (lettre in repartition_mdj) { //elle est dans le mot à trouver
+                    console.log(repartition_mdj[lettre])
+                    if (repartition_mdj[lettre].includes(index)) { //elle est à la bonne place
+                        if (lettre in repartition_found) {
+                            repartition_found[lettre].push(index)
+                        } else {
+                            repartition_found[lettre] = [index];
+                        }
+
                         square.classList = 'letter-square-right-place';
-                    } else {
-                        square.classList = 'letter-square-wrong-place';
+                    }
+                }
+            })
+
+            mot_active.split('', 5).forEach((lettre, index) => {
+
+                let square = document.querySelector(`#row-${row_active} :nth-child(${index + 1})`);
+
+                if (lettre in repartition_mdj) { //elle est dans le mot à trouver
+                    if (repartition_mdj[lettre].includes(index) === false) { //elle est à la bonne place
+                        if (lettre in repartition_found) {
+                            console.log(repartition_found[lettre])
+                            console.log(repartition_mdj[lettre])
+                            if (repartition_found[lettre].length < repartition_mdj[lettre].length) {
+                                square.classList = 'letter-square-wrong-place';
+                            }
+                        } else {
+                            square.classList = 'letter-square-wrong-place';
+                        }
                     }
                 }
             })
