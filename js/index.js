@@ -1,5 +1,5 @@
 let row_active = 0;
-let square_active = 1;
+let square_active = 0;
 let mot_du_jour = '';
 let mot_active = '';
 let words = [];
@@ -17,11 +17,8 @@ $.getJSON('js/random_words.json', function (data) {
 
 document.onkeydown = function (e) {
 
-    console.log(mot_du_jour);
-
-    if (square_active <= 5 && (/[a-zA-Z]/).test(e.key) && e.key.length <= 1 && e.key !== 'Enter') {
-        console.log('une lettre')
-        let square = document.querySelector(`#row-${row_active} :nth-child(${square_active})`);
+    if (square_active <= 4 && (/[a-zA-Z]/).test(e.key) && e.key.length <= 1 && e.key !== 'Enter') {
+        let square = document.querySelector(`#row-${row_active} :nth-child(${square_active + 1})`);
 
         square.innerHTML += `<span class="letter">${e.key}</span>`;
         mot_active = mot_active+e.key;
@@ -29,24 +26,43 @@ document.onkeydown = function (e) {
         square_active ++;
     }
 
-    if (e.key === 'Backspace' && square_active > 1) {
+    if (e.key === 'Backspace' && square_active > 0) {
         square_active --;
-        let square = document.querySelector(`#row-${row_active} :nth-child(${square_active})`);
+        let square = document.querySelector(`#row-${row_active} :nth-child(${square_active + 1})`);
         mot_active = mot_active.slice(0, -1)
         square.innerHTML = '';
     }
 
-    if (square_active > 5 && e.key === 'Enter') {
+    if (square_active > 4 && e.key === 'Enter') {
 
-        if (mot_active === mot_du_jour) {
-            console.log('youpi')
-        } else if(words.includes(mot_active) === false) {
+        if (words.includes(mot_active) === false) {
             console.log('il est pas dedans')
         } else {
-            square_active = 1;
-            row_active ++;
-            mot_active = '';
+            //calcul du placement des lettres
+
+            mot_active.split('', 5).forEach((lettre, index) => {
+                console.log(mot_du_jour.split('', 5).indexOf(lettre))
+                let square = document.querySelector(`#row-${row_active} :nth-child(${index + 1})`);
+
+                //si la lettre est au bon endroit
+                if (index === mot_du_jour.split('', 5).indexOf(lettre)) {
+                    console.log('la lettre '+lettre+' est au bon endroit')
+                    square.classList = 'letter-square-right-place';
+
+                } else if (mot_du_jour.split('', 5).includes(lettre)) {
+                    console.log('la lettre '+lettre+' est mal placée')
+                    square.classList = 'letter-square-wrong-place';
+
+                } else {
+                    console.log('la lettre '+lettre+' n\'est pas présente')
+                }
+            })
+
+            setTimeout(function () {
+                square_active = 0;
+                row_active ++;
+                mot_active = '';
+            }, 500)
         }
     }
-
 };
